@@ -1,0 +1,14 @@
+FROM nginx:latest
+
+ADD ./dist /var/lib/assets
+ADD ./nginx/ /etc/nginx/
+COPY certificate.crt /etc/nginx/certs/
+COPY ca_bundle.crt /etc/nginx/certs/
+COPY crave-bundle.crt /etc/nginx/certs/
+COPY private.key /etc/ssl/private/
+COPY dhparam.pem /etc/ssl/certs/
+
+EXPOSE 80
+EXPOSE 443
+
+CMD nginx -g "daemon off;"

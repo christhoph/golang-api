@@ -1,0 +1,14 @@
+FROM golang:latest
+
+WORKDIR /go/src/github.com/raunofreiberg/kyrene
+
+ADD . /go/src/github.com/raunofreiberg/kyrene
+
+RUN curl https://glide.sh/get | sh
+RUN glide install
+RUN go get github.com/codegangsta/gin
+
+EXPOSE 8000
+
+# Default is production build. This is overriden in development to use hot reloading.
+CMD ["go build && ./kyrene"]

@@ -1,0 +1,48 @@
+hash: e1220d5ff043e07ac5e07e07a6c31aa6c1a589f792de7c289434111112b86d64
+updated: 2019-08-19T00:33:42.537647983Z
+imports:
+- name: github.com/dghubble/gologin
+  version: edc80f410ed94c1d4c8bf032ac70889a8a1f4fb3
+- name: github.com/dgrijalva/jwt-go
+  version: dbeaa9332f19a944acb5736b4456cfcc02140e29
+- name: github.com/go-pg/pg
+  version: 003999b8cdeac09f13d183a7f5e1342d9a33a174
+  subpackages:
+  - internal
+  - internal/iszero
+  - internal/parser
+  - internal/pool
+  - internal/struct_filter
+  - internal/tag
+  - orm
+  - types
+- name: github.com/go-test/deep
+  version: 1888facc153dfaea996367ec0e53d0c42d1b8454
+- name: github.com/gorilla/handlers
+  version: 8a3748addc242fc560bd6d4ff28b0374c010b1b4
+- name: github.com/graphql-go/graphql
+  version: 5e7dd4fc3e87341229fa03d8f79d2ab5455963fb
+  subpackages:
+  - gqlerrors
+  - language/ast
+  - language/kinds
+  - language/lexer
+  - language/location
+  - language/parser
+  - language/printer
+  - language/source
+  - language/typeInfo
+  - language/visitor
+- name: github.com/graphql-go/handler
+  version: f0393b2c10daeebea900292b8e092e73475399d9
+- name: github.com/jinzhu/inflection
+  version: 04140366298a54a039076d798123ffa108fff46c
+- name: golang.org/x/crypto
+  version: 0fcca4842a8d74bfddc2c96a073bd2a4d2a7a2e8
+  subpackages:
+  - bcrypt
+  - blowfish
+  - pbkdf2
+- name: mellium.im/sasl
+  version: e27ea4901008898ec096743695a52411c2d03886
+testImports: []

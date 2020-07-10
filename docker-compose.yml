@@ -1,0 +1,32 @@
+version: "2"
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile-go
+    volumes:
+      - .:/go/src/github.com/raunofreiberg/kyrene
+    links:
+      - db
+    depends_on:
+      - db
+    ports:
+      - "3000:3000" # gin runs at 3000 and proxies the request to the webserver at port 8000
+    environment:
+      - ENV=development
+      - DB_NAME=kyrene
+      - DB_USER=postgres
+      - DB_PASS=postgres
+      - DB_HOST=db
+    command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; go build && gin --appPort 8000'
+  db:
+    image: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - .data-postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=kyrene
+    restart: always

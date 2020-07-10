@@ -1,0 +1,47 @@
+version: "2"
+
+services:
+  api: # Go server runs on :8000, /graphql route is proxied to via Nginx
+    image: uri.api.up
+    build:
+      context: .
+      dockerfile: Dockerfile-go
+    volumes:
+      - .:/go/src/github.com/raunofreiberg/kyrene
+    links:
+      - db
+    depends_on:
+      - db
+    environment:
+      - ENV=production
+      - DB_NAME=kyrene
+      - DB_USER=postgres
+      - DB_PASS=postgres
+      - DB_HOST=db
+    command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; go build && ./kyrene'
+    mem_limit: 400m
+  db:
+    image: postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - .data-postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=kyrene
+    restart: always
+    mem_limit: 400m
+  nginx:
+    image: nginx
+    restart: always
+    volumes:
+      - ./dist:/var/lib/assets
+      - ./nginx/:/etc/nginx/
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - client
+      - api
+    mem_limit: 400m

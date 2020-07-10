@@ -1,0 +1,17 @@
+language: go
+
+go:
+  - 1.9.x
+  - master
+
+matrix:
+  allow_failures:
+    - go: master
+  fast_finish: true
+
+install:
+  - go get github.com/mattn/goveralls
+
+script:
+  - go test -v ./...
+  - $GOPATH/bin/goveralls -service=travis-ci

@@ -1,0 +1,16 @@
+image: freebsd/latest
+packages:
+  - go
+environment:
+  GO111MODULE: 'on'
+  PATH: "$PATH:`go env GOPATH`/bin"
+sources:
+  - https://github.com/mellium/sasl.git
+tasks:
+  - stable: |
+      cd sasl/
+      go vet ./...
+      go test -v -cover ./...
+  - lint: |
+      cd sasl/
+      gofmt -s -l . && [ -z "$(gofmt -s -l .)" ]
